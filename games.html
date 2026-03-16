@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games | Elite Pc Games</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+  <header class="bg-gray-800 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-3xl font-bold text-green-400">Elite Pc Games</h1>
+      <nav>
+        <a href="index.html" class="mx-2 hover:text-green-400">Home</a>
+        <a href="games.html" class="mx-2 hover:text-green-400">Games</a>
+        <a href="about.html" class="mx-2 hover:text-green-400">About</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container mx-auto px-6 py-12">
+    <h2 class="text-4xl font-extrabold mb-8 text-center">Our Top Games</h2>
+    <div class="flex justify-center mb-8">
+      <input id="searchInput" type="text" placeholder="Search games..." class="w-full md:w-1/2 px-4 py-2 rounded-lg border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-400" onkeyup="filterGames()">
+    </div>
+    <div id="gamesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Game cards will be rendered here by JavaScript -->
+    </div>
+    <div class="flex justify-center mt-8 space-x-4">
+      <button id="prevBtn" onclick="prevPage()" class="bg-gray-700 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition">Previous</button>
+      <button id="nextBtn" onclick="nextPage()" class="bg-gray-700 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full transition">Next</button>
+    </div>
+    <script>
+      // Games data (12 games, update images and details as needed)
+      // --- EASY GAME UPDATE SYSTEM ---
+      // To add a new game, just add a new object to the games array below:
+      // { title: 'Game Name', img: 'images/your-image.jpg', desc: 'Short description.' }
+      const games = [
+        { title: 'Need for Speed Heat', img: 'images/nfs-heat.jpg', desc: 'Experience thrilling street races and evade the cops in this high-speed action game.' },
+        { title: 'Red Dead Redemption 2', img: 'images/rdr2.jpg', desc: 'Step into the wild west and live the epic story of Arthur Morgan and the Van der Linde gang.' },
+        { title: 'Cyberpunk 2077', img: 'images/cyberpunk2077.jpg', desc: 'Explore Night City in this open-world RPG packed with action, story, and futuristic tech.' },
+        { title: 'Grand Theft Auto V', img: 'images/gta5.jpg', desc: 'Dive into the criminal underworld of Los Santos in this open-world action game.' },
+        { title: 'Assassin\'s Creed Valhalla', img: 'images/ac-valhalla.jpg', desc: 'Lead your Viking clan to glory in this epic historical adventure.' },
+        { title: 'Call of Duty: Modern Warfare', img: 'images/cod-mw.jpg', desc: 'Engage in intense modern combat with realistic graphics and gameplay.' },
+        { title: 'FIFA 24', img: 'images/fifa24.jpg', desc: 'Experience the excitement of world-class football with the latest teams and players.' },
+        { title: 'Far Cry 6', img: 'images/farcry6.jpg', desc: 'Liberate a nation from a ruthless dictator in this action-packed shooter.' },
+        { title: 'Forza Horizon 5', img: 'images/forza5.jpg', desc: 'Race across stunning landscapes in this open-world driving adventure.' },
+        { title: 'Resident Evil Village', img: 'images/re8.jpg', desc: 'Survive terrifying horrors in the latest chapter of the Resident Evil saga.' },
+        { title: 'Watch Dogs: Legion', img: 'images/watchdogs-legion.jpg', desc: 'Build a resistance and fight for freedom in a near-future London.' },
+        { title: 'Valorant', img: 'images/valorant.jpg', desc: 'Compete in this tactical shooter with unique agents and abilities.' },
+        // Add more games here!
+      ];
+
+      let currentPage = 1;
+      const gamesPerPage = 12;
+      let filteredGames = games;
+
+      function renderGames() {
+        const grid = document.getElementById('gamesGrid');
+        grid.innerHTML = '';
+        const start = (currentPage - 1) * gamesPerPage;
+        const end = start + gamesPerPage;
+        const pageGames = filteredGames.slice(start, end);
+        pageGames.forEach(game => {
+          const card = document.createElement('div');
+          card.className = 'bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col items-center';
+          card.innerHTML = `
+            <img src="${game.img}" alt="${game.title}" class="rounded-lg mb-4 w-full h-48 object-cover">
+            <h3 class="text-2xl font-bold mb-2">${game.title}</h3>
+            <p class="mb-4">${game.desc}</p>
+            <a href="#" class="download-btn">Download</a>
+          `;
+          grid.appendChild(card);
+        });
+        // Only show pagination if more than 12 games
+        document.getElementById('prevBtn').style.display = (filteredGames.length > gamesPerPage) ? 'inline-block' : 'none';
+        document.getElementById('nextBtn').style.display = (filteredGames.length > gamesPerPage) ? 'inline-block' : 'none';
+        document.getElementById('prevBtn').disabled = currentPage === 1;
+        document.getElementById('nextBtn').disabled = end >= filteredGames.length;
+      }
+
+      function filterGames() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        filteredGames = games.filter(game => game.title.toLowerCase().includes(query));
+        currentPage = 1;
+        renderGames();
+      }
+
+      function nextPage() {
+        if ((currentPage * gamesPerPage) < filteredGames.length) {
+          currentPage++;
+          renderGames();
+        }
+      }
+
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          renderGames();
+        }
+      }
+
+      // Initial render
+      renderGames();
+    </script>
+  </main>
+  <footer class="bg-gray-800 text-center py-4 mt-12">
+    <p>&copy; 2026 Elite Pc Games. All rights reserved.</p>
+  </footer>
+</body>
+</html>

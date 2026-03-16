@@ -1,0 +1,16 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Custom styles for download button */
+.download-btn {
+  background: linear-gradient(90deg, #22d3ee 0%, #22c55e 100%);
+  color: #fff;
+  font-weight: bold;
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  transition: background 0.3s;
+}
+.download-btn:hover {
+  background: linear-gradient(90deg, #22c55e 0%, #22d3ee 100%);
+}

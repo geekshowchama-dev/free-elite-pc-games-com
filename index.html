@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elite Pc Games</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Floating animation for hero content */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="text-white min-h-screen flex flex-col" style="background: url('images/home-bg.jpg') center/cover no-repeat;">
+
+  <!-- Header -->
+  <header class="bg-gray-800 bg-opacity-80 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-3xl font-bold text-green-400">
+        <a href="games.html" class="hover:text-green-300">Elite Pc Games</a>
+      </h1>
+      <nav>
+        <a href="index.html" class="mx-2 hover:text-green-400">Home</a>
+        <a href="games.html" class="mx-2 hover:text-green-400">Games</a>
+        <a href="about.html" class="mx-2 hover:text-green-400">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="flex-grow flex items-center justify-center">
+    <div class="relative w-full max-w-3xl text-center">
+      <!-- Overlay for readability -->
+      <div class="absolute inset-0 bg-black bg-opacity-40 rounded-lg"></div>
+
+      <!-- Hero Content with floating animation -->
+      <div class="relative z-10 px-6 py-20 animate-float">
+        <h2 class="text-5xl font-extrabold mb-6">Welcome to Elite Pc Games</h2>
+        <a href="games.html" id="browse-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-2xl transition">Browse Games</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 bg-opacity-80 text-center py-4 mt-auto">
+    <p>&copy; 2026 Elite Pc Games. All rights reserved.</p>
+  </footer>
+
+  <!-- Music Script -->
+  <script>
+    // Create Audio object
+    const music = new Audio('music/your-track.mp3'); // make sure this file exists
+    music.loop = true;
+
+    // Play music when user clicks Browse Games button
+    document.getElementById('browse-btn').addEventListener('click', () => {
+      music.play().catch(() => {
+        console.log("User interaction required to play audio.");
+      });
+    });
+  </script>
+
+</body>
+</html>
